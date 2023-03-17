@@ -7,7 +7,7 @@ import { Keyboard } from "./components/Keyboard";
 
 const mainContainerStyles = {
   display: "flex",
-  flexDirections: "column",
+  flexDirection: "column" as const,
   alignItems: "center",
   maxWidth: "800px",
   margin: "0 auto",
@@ -16,7 +16,6 @@ const mainContainerStyles = {
 
 const verdictStyles = {
   fontSize: "2rem",
-  textAlign: "center" as "center",
 };
 
 const randomWord = words[Math.floor(Math.random() * words.length)];
@@ -28,9 +27,13 @@ function App() {
   return (
     <div style={mainContainerStyles}>
       <div style={verdictStyles}>{"Lose Win"}</div>
-      <HangmanDrawing />
-      <HangmanWord />
-      <Keyboard />
+      <div>
+        <HangmanDrawing />
+        {/* <HangmanWord />
+        <div style={{ alignSelf: "stretch" }}>
+          <Keyboard />
+        </div> */}
+      </div>
     </div>
   );
 }
