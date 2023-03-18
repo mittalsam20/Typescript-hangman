@@ -1,4 +1,4 @@
-export function HangmanWord() {
+export function WordDrawing() {
   const word = "test";
   const guessedLetters = ["e"];
   return (
@@ -6,7 +6,6 @@ export function HangmanWord() {
       style={{
         display: "flex",
         gap: ".25rem",
-        fontSize: "6rem",
         fontWeight: "bold",
         textTransform: "capitalize",
         fontFamily: "monospace",
