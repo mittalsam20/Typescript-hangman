@@ -13,14 +13,14 @@ const App = () => {
   const incorrectLetters = guessedLetters.filter(
     (letter) => !wordToGuess.includes(letter)
   );
-  const isLoser = incorrectLetters.length >= 6;
+  const isLooser = incorrectLetters.length >= 6;
   const isWinner = wordToGuess
     .split("")
     .every((letter) => guessedLetters.includes(letter));
 
   const addGuessedLetter = useCallback(
     (letter: string) => {
-      if (guessedLetters.includes(letter)) return;
+      if (guessedLetters.includes(letter) || isLooser || isWinner) return;
       setGuessedLetters((currentLetters) => [...currentLetters, letter]);
     },
     [guessedLetters]
@@ -37,7 +37,7 @@ const App = () => {
 
     document.addEventListener("keypress", handler);
     return () => document.removeEventListener("keypress", handler);
-  }, [guessedLetters]);
+  }, [guessedLetters, isLooser, isWinner]);
 
   return (
     <div className={"mainContainer"}>
@@ -48,7 +48,7 @@ const App = () => {
         </div>
         <div>
           {isWinner && "Winner!  - Refresh to try again"}
-          {isLoser && "Nice Try - Refresh to try again"}
+          {isLooser && "Nice Try - Refresh to try again"}
         </div>
         <div className={"rightContainer"}>
           <WordDrawing
@@ -56,7 +56,7 @@ const App = () => {
             guessedLetters={guessedLetters}
           />
           <Keyboard
-            disabled={isWinner || isLoser}
+            disabled={isWinner || isLooser}
             activeLetters={guessedLetters.filter((letter) =>
               wordToGuess.includes(letter)
             )}
