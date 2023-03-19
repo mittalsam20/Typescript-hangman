@@ -9,52 +9,64 @@ const commonStyles = {
 
 const bodyPartsStyles = [
   {
-    show: true,
-    width: "50px",
-    borderRadius: "100%",
-    border: "10px solid black",
-    position: "absolute" as const,
-    top: "50px",
-    right: "-230px",
-    height: "50px",
+    name: "head",
+    styles: {
+      width: "50px",
+      borderRadius: "100%",
+      border: "10px solid black",
+      position: "absolute" as const,
+      top: "50px",
+      right: "-230px",
+      height: "50px",
+    },
   },
   {
-    ...commonStyles.stickStyles,
-    show: true,
-    top: "120px",
-    right: "-200px",
+    name: "body",
+    styles: {
+      ...commonStyles.stickStyles,
+      top: "120px",
+      right: "-200px",
+    },
   },
   {
-    ...commonStyles.stickStyles,
-    show: true,
-    top: "80px",
-    right: "-200px",
-    rotate: "-45deg",
-    transformOrigin: "right bottom",
+    name: "leftArm",
+    styles: {
+      ...commonStyles.stickStyles,
+      top: "80px",
+      right: "-200px",
+      rotate: "-45deg",
+      transformOrigin: "right bottom",
+    },
   },
   {
-    ...commonStyles.stickStyles,
-    show: true,
-    top: "80px",
-    right: "-200px",
-    rotate: "45deg",
-    transformOrigin: "left bottom",
+    name: "rightArm",
+    styles: {
+      ...commonStyles.stickStyles,
+      top: "80px",
+      right: "-200px",
+      rotate: "45deg",
+      transformOrigin: "left bottom",
+    },
   },
   {
-    ...commonStyles.stickStyles,
-    show: true,
-    top: "113px",
-    right: "-192px",
-    rotate: "-135deg",
-    transformOrigin: "right bottom",
+    name: "leftLeg",
+    styles: {
+      ...commonStyles.stickStyles,
+      top: "113px",
+      right: "-192px",
+      rotate: "-135deg",
+      transformOrigin: "right bottom",
+    },
   },
   {
-    ...commonStyles.stickStyles,
-    show: true,
-    top: "113px",
-    right: "-208px",
-    rotate: "135deg",
-    transformOrigin: "left bottom",
+    name: "rightLeg",
+    styles: {
+      ...commonStyles.stickStyles,
+      top: "113px",
+      right: "-208px",
+      rotate: "135deg",
+      transformOrigin: "left bottom",
+    },
   },
 ];
 
@@ -87,12 +99,15 @@ const hangerPartsStyles = [
   },
 ];
 
-export function HangmanDrawing() {
+type props = {
+  numberOfGuesses: number;
+};
+export function HangmanDrawing({ numberOfGuesses }: props) {
   return (
     <div style={{ position: "relative" }}>
-      {bodyPartsStyles.map(
-        ({ show, ...partStyles }) => show && <div style={partStyles} />
-      )}
+      {bodyPartsStyles.slice(0, numberOfGuesses).map(({ name, styles }) => (
+        <div key={name} style={styles} />
+      ))}
 
       {hangerPartsStyles.map((partStyles) => (
         <div style={partStyles} />
