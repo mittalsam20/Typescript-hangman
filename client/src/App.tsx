@@ -5,10 +5,12 @@ import { HangmanDrawing } from "./components/hangmanDrawing.js/HangmanDrawing";
 import { WordDrawing } from "./components/wordDrawing/WordDrawing";
 import { Keyboard } from "./components/keyboard/Keyboard";
 
-const randomWord = words[Math.floor(Math.random() * words.length)];
+const getNewWord = () => {
+  return words[Math.floor(Math.random() * words.length)];
+};
 
 const App = () => {
-  const [wordToGuess, setWordToGuess] = useState(randomWord);
+  const [wordToGuess, setWordToGuess] = useState(getNewWord());
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const incorrectLetters = guessedLetters.filter(
     (letter) => !wordToGuess.includes(letter)
@@ -27,7 +29,6 @@ const App = () => {
   );
 
   useEffect(() => {
-    console.log("ss", guessedLetters);
     const handler = (e: KeyboardEvent) => {
       const key = e.key;
       if (!key.match(/^[a-z]$/)) return;
@@ -39,6 +40,18 @@ const App = () => {
     return () => document.removeEventListener("keypress", handler);
   }, [guessedLetters, isLooser, isWinner]);
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const key = e.key;
+      if (key !== "Enter") return;
+      e.preventDefault();
+      setGuessedLetters([]);
+      setWordToGuess(getNewWord());
+    };
+
+    document.addEventListener("keypress", handler);
+    return () => document.removeEventListener("keypress", handler);
+  }, []);
   return (
     <div className={"mainContainer"}>
       <div className={"mainTitle"}>{"The Hangman"}</div>
