@@ -8,7 +8,7 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 12px 60px;
-  font-size: 4rem;
+  font-size: 3rem;
   gap: 60px;
 }
 
@@ -29,5 +29,6 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  align-items: center;
+  gap: 20px;
 }

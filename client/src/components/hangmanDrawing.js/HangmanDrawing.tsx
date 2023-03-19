@@ -105,14 +105,16 @@ type props = {
 
 export function HangmanDrawing({ numberOfGuesses }: props) {
   return (
-    <div style={{ position: "relative" }}>
-      {bodyPartsStyles.slice(0, numberOfGuesses).map(({ name, styles }) => (
-        <div key={name} style={styles} />
-      ))}
+    <div style={{ display: "flex", width: "350px" }}>
+      <div style={{ position: "relative" }}>
+        {bodyPartsStyles.slice(0, numberOfGuesses).map(({ name, styles }) => (
+          <div key={name} style={styles} />
+        ))}
 
-      {hangerPartsStyles.map((partStyles, index) => (
-        <div style={partStyles} key={index} />
-      ))}
+        {hangerPartsStyles.map((partStyles, index) => (
+          <div style={partStyles} key={index} />
+        ))}
+      </div>
     </div>
   );
 }
