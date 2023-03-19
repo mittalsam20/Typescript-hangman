@@ -102,6 +102,7 @@ const hangerPartsStyles = [
 type props = {
   numberOfGuesses: number;
 };
+
 export function HangmanDrawing({ numberOfGuesses }: props) {
   return (
     <div style={{ position: "relative" }}>

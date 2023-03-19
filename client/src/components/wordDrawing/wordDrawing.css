@@ -1,0 +1,15 @@
+.wordContainer {
+  display: flex;
+  gap: 0.25rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-family: monospace;
+}
+
+.letterContainer {
+  border-bottom: 0.1em solid black;
+}
+
+.letterInnerContainer {
+  visibility: hidden;
+}

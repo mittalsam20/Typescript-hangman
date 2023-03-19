@@ -12,13 +12,18 @@ const getNewWord = () => {
 const App = () => {
   const [wordToGuess, setWordToGuess] = useState(getNewWord());
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
+
   const incorrectLetters = guessedLetters.filter(
     (letter) => !wordToGuess.includes(letter)
   );
+
   const isLooser = incorrectLetters.length >= 6;
   const isWinner = wordToGuess
     .split("")
     .every((letter) => guessedLetters.includes(letter));
+  const verdict = `${
+    isWinner ? "Winner! -" : isLooser ? "Nice Try -" : ""
+  } Hit Enter to try again`;
 
   const addGuessedLetter = useCallback(
     (letter: string) => {
@@ -35,7 +40,6 @@ const App = () => {
       e.preventDefault();
       addGuessedLetter(key);
     };
-
     document.addEventListener("keypress", handler);
     return () => document.removeEventListener("keypress", handler);
   }, [guessedLetters, isLooser, isWinner]);
@@ -48,21 +52,20 @@ const App = () => {
       setGuessedLetters([]);
       setWordToGuess(getNewWord());
     };
-
     document.addEventListener("keypress", handler);
     return () => document.removeEventListener("keypress", handler);
   }, []);
+
   return (
     <div className={"mainContainer"}>
       <div className={"mainTitle"}>{"The Hangman"}</div>
+
       <div className={"bodyContainer"}>
         <div style={{ display: "flex", width: "350px" }}>
           <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
         </div>
-        <div>
-          {isWinner && "Winner!  - Refresh to try again"}
-          {isLooser && "Nice Try - Refresh to try again"}
-        </div>
+        <div>{verdict}</div>
+
         <div className={"rightContainer"}>
           <WordDrawing
             isReveal={isLooser}

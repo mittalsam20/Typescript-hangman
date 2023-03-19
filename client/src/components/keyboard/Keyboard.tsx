@@ -35,28 +35,21 @@ type props = {
   addGuessedLetter: (letter: string) => void;
 };
 
+const getButtonClasses = (isActive: boolean, isInActive: boolean) =>
+  `button ${isActive ? "active" : isInActive ? "inactive" : ""}`;
+
 export function Keyboard({
   disabled = false,
   activeLetters,
   inActiveLetters,
   addGuessedLetter,
 }: props) {
-  const getButtonClasses = (isActive: boolean, isInActive: boolean) =>
-    `button ${isActive ? "active" : isInActive ? "inactive" : ""}`;
-
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(75px, 1fr))",
-        gap: ".5rem",
-      }}
-    >
+    <div className={"keyboardContainer"}>
       {keys.map((key) => {
         const isActive = activeLetters.includes(key);
         const isInActive = inActiveLetters.includes(key);
         const buttonClasses = getButtonClasses(isActive, isInActive);
-        console.log(buttonClasses);
         return (
           <button
             key={key}

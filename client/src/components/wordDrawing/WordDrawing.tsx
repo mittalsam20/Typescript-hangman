@@ -1,7 +1,21 @@
+import "./wordDrawing.css";
+
 type props = {
   isReveal?: boolean;
   wordToGuess: string;
   guessedLetters: string[];
+};
+
+const getLetterContainerStyle = (
+  letter: string,
+  isReveal: boolean,
+  guessedLetters: string[]
+) => {
+  return {
+    visibility: ((guessedLetters.includes(letter) || isReveal) &&
+      "visible") as "visible",
+    color: !guessedLetters.includes(letter) && isReveal ? "red" : "black",
+  };
 };
 
 export function WordDrawing({
@@ -10,31 +24,24 @@ export function WordDrawing({
   isReveal = false,
 }: props) {
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: ".25rem",
-        fontWeight: "bold",
-        textTransform: "capitalize",
-        fontFamily: "monospace",
-      }}
-    >
-      {wordToGuess.split("").map((letter, index) => (
-        <span style={{ borderBottom: ".1em solid black" }} key={index}>
-          <span
-            style={{
-              visibility:
-                guessedLetters.includes(letter) || isReveal
-                  ? "visible"
-                  : "hidden",
-              color:
-                !guessedLetters.includes(letter) && isReveal ? "red" : "black",
-            }}
-          >
-            {letter}
+    <div className={"wordContainer"}>
+      {wordToGuess.split("").map((letter, index) => {
+        const letterContainerStyle = getLetterContainerStyle(
+          letter,
+          isReveal,
+          guessedLetters
+        );
+        return (
+          <span key={index} className={"letterContainer"}>
+            <span
+              style={letterContainerStyle}
+              className={"letterInnerContainer"}
+            >
+              {letter}
+            </span>
           </span>
-        </span>
-      ))}
+        );
+      })}
     </div>
   );
 }
