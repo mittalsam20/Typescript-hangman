@@ -29,12 +29,14 @@ const keys = [
 ];
 
 type props = {
+  disabled?: boolean;
   activeLetters: string[];
   inActiveLetters: string[];
   addGuessedLetter: (letter: string) => void;
 };
 
 export function Keyboard({
+  disabled = false,
   activeLetters,
   inActiveLetters,
   addGuessedLetter,
@@ -50,7 +52,7 @@ export function Keyboard({
         gap: ".5rem",
       }}
     >
-      {keys.map((key, index) => {
+      {keys.map((key) => {
         const isActive = activeLetters.includes(key);
         const isInActive = inActiveLetters.includes(key);
         const buttonClasses = getButtonClasses(isActive, isInActive);
@@ -59,7 +61,7 @@ export function Keyboard({
           <button
             key={key}
             className={buttonClasses}
-            disabled={isActive || isInActive}
+            disabled={isActive || isInActive || disabled}
             onClick={() => addGuessedLetter(key)}
           >
             {key}
