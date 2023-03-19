@@ -1,9 +1,14 @@
 type props = {
-  guessedLetters: string[];
+  isReveal?: boolean;
   wordToGuess: string;
+  guessedLetters: string[];
 };
 
-export function WordDrawing({ wordToGuess, guessedLetters }: props) {
+export function WordDrawing({
+  wordToGuess,
+  guessedLetters,
+  isReveal = false,
+}: props) {
   return (
     <div
       style={{
@@ -18,9 +23,12 @@ export function WordDrawing({ wordToGuess, guessedLetters }: props) {
         <span style={{ borderBottom: ".1em solid black" }} key={index}>
           <span
             style={{
-              visibility: guessedLetters.includes(letter)
-                ? "visible"
-                : "hidden",
+              visibility:
+                guessedLetters.includes(letter) || isReveal
+                  ? "visible"
+                  : "hidden",
+              color:
+                !guessedLetters.includes(letter) && isReveal ? "red" : "black",
             }}
           >
             {letter}

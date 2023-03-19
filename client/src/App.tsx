@@ -52,6 +52,7 @@ const App = () => {
         </div>
         <div className={"rightContainer"}>
           <WordDrawing
+            isReveal={isLooser}
             wordToGuess={wordToGuess}
             guessedLetters={guessedLetters}
           />
