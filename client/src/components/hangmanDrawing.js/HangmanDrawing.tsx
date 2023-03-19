@@ -109,8 +109,8 @@ export function HangmanDrawing({ numberOfGuesses }: props) {
         <div key={name} style={styles} />
       ))}
 
-      {hangerPartsStyles.map((partStyles) => (
-        <div style={partStyles} />
+      {hangerPartsStyles.map((partStyles, index) => (
+        <div style={partStyles} key={index} />
       ))}
     </div>
   );
