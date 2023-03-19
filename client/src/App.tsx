@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import words from "./wordList.json";
 import "./App.css";
 import { HangmanDrawing } from "./components/hangmanDrawing.js/HangmanDrawing";
@@ -14,6 +14,25 @@ const App = () => {
     (letter) => !wordToGuess.includes(letter)
   );
 
+  function addGuessedLetter(letter: string) {
+    if (guessedLetters.includes(letter)) return;
+    setGuessedLetters((currentLetters) => [...currentLetters, letter]);
+  }
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const key = e.key;
+      if (!key.match(/^[a-z]$/)) return;
+      e.preventDefault();
+      addGuessedLetter(key);
+    };
+
+    document.addEventListener("keypress", handler);
+    return () => {
+      document.removeEventListener("keypress", handler);
+    };
+  }, []);
+
   return (
     <div className={"mainContainer"}>
       <div className={"mainTitle"}>{"The Hangman"}</div>
@@ -23,7 +42,10 @@ const App = () => {
         </div>
         {/* <div>{"Lose Win"}</div> */}
         <div className={"rightContainer"}>
-          <WordDrawing />
+          <WordDrawing
+            wordToGuess={wordToGuess}
+            guessedLetters={guessedLetters}
+          />
           <Keyboard />
         </div>
       </div>

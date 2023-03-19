@@ -1,6 +1,9 @@
-export function WordDrawing() {
-  const word = "test";
-  const guessedLetters = ["e"];
+type props = {
+  guessedLetters: string[];
+  wordToGuess: string;
+};
+
+export function WordDrawing({ wordToGuess, guessedLetters }: props) {
   return (
     <div
       style={{
@@ -11,7 +14,7 @@ export function WordDrawing() {
         fontFamily: "monospace",
       }}
     >
-      {word.split("").map((letter, index) => (
+      {wordToGuess.split("").map((letter, index) => (
         <span style={{ borderBottom: ".1em solid black" }} key={index}>
           <span
             style={{
